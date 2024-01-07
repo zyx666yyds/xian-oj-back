@@ -14,8 +14,7 @@ import java.util.List;
 /**
  * 查询请求
  *
- * @author <a href="https://github.com/lizyx">程序员鱼皮</a>
- * @from <a href="https://zyx.icu">编程导航知识星球</a>
+ * @author 24088
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -52,6 +51,5 @@ public class QuestionQueryRequest extends PageRequest implements Serializable {
      */
     private Long userId;
 
-    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }
