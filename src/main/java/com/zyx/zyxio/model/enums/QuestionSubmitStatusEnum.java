@@ -14,8 +14,9 @@ import java.util.stream.Collectors;
  * @date 2024/1/4 004 16:44
  */
 public enum QuestionSubmitStatusEnum {
+    //0 待提交 1 判题中 2 提交成功 3 提交失败
     WAITING("待提交", 0),
-    RUNNING("正在提交", 1),
+    RUNNING("判题中", 1),
     SUCCEED("提交成功", 2),
     FAILED("提交失败", 3),
     ;

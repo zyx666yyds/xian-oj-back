@@ -1,11 +1,14 @@
 package com.zyx.zyxio.model.dto.questionsubmit;
 
+import lombok.Data;
+
 /**
  * @author zyx
  * @version 1.0
  * @date 2024/1/3 003 19:51
  * 判题信息
  */
+@Data
 public class JudgeInfo {
 
     /**

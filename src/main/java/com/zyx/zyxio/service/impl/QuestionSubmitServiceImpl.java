@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zyx.zyxio.common.ErrorCode;
 import com.zyx.zyxio.constant.CommonConstant;
 import com.zyx.zyxio.exception.BusinessException;
+import com.zyx.zyxio.judge.JudgeService;
 import com.zyx.zyxio.model.dto.question.QuestionQueryRequest;
 import com.zyx.zyxio.model.dto.questionsubmit.QuestionSubmitAddRequest;
 import com.zyx.zyxio.model.dto.questionsubmit.QuestionSubmitQueryRequest;
@@ -28,6 +29,7 @@ import com.zyx.zyxio.utils.SqlUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.aop.framework.AopContext;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +38,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -52,6 +55,10 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
 
     @Resource
     private UserService userService;
+
+    @Resource
+    @Lazy
+    private JudgeService judgeService;
 
     /**
      * 提交题目
@@ -91,7 +98,12 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
         if (!save) {
             throw new BusinessException(ErrorCode.SYSTEM_ERROR, "数据输入失败");
         }
-        return questionSubmit.getId();
+        Long questionSubmitId = questionSubmit.getId();
+        //todo 执行判题服务
+        CompletableFuture.runAsync(() -> {
+            judgeService.doJudge(questionSubmitId);
+        });
+        return questionSubmitId;
     }
 
 
@@ -132,7 +144,7 @@ public class QuestionSubmitServiceImpl extends ServiceImpl<QuestionSubmitMapper,
      * 获取问题对应的QuestionSubmitVO对象
      *
      * @param questionSubmit 问题对象
-     * @param request        请求对象
+     * @param loginUser        用户登录
      * @return 问题的QuestionSubmitVO对象
      */
     @Override
