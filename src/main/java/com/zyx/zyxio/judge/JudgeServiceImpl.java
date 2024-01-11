@@ -8,28 +8,18 @@ import com.zyx.zyxio.judge.codesandbox.CodeSandboxFactory;
 import com.zyx.zyxio.judge.codesandbox.CodeSandboxProxy;
 import com.zyx.zyxio.judge.codesandbox.model.ExecuteCodeRequest;
 import com.zyx.zyxio.judge.codesandbox.model.ExecuteCodeResponse;
-import com.zyx.zyxio.judge.strategy.DefaultJudgeStrategy;
-import com.zyx.zyxio.judge.strategy.JavaJudgeStrategy;
 import com.zyx.zyxio.judge.strategy.JudgeContext;
-import com.zyx.zyxio.judge.strategy.JudgeStrategy;
 import com.zyx.zyxio.model.dto.question.QuestionJudgeCase;
-import com.zyx.zyxio.model.dto.question.QuestionJudgeConfig;
-import com.zyx.zyxio.model.dto.questionsubmit.JudgeInfo;
+import com.zyx.zyxio.judge.codesandbox.model.JudgeInfo;
 import com.zyx.zyxio.model.entity.Question;
 import com.zyx.zyxio.model.entity.QuestionSubmit;
-import com.zyx.zyxio.model.enums.JudgeInfoMessageEnum;
-import com.zyx.zyxio.model.enums.QuestionSubmitLanguageEnum;
 import com.zyx.zyxio.model.enums.QuestionSubmitStatusEnum;
-import com.zyx.zyxio.model.vo.QuestionVO;
 import com.zyx.zyxio.service.QuestionService;
 import com.zyx.zyxio.service.QuestionSubmitService;
-import org.elasticsearch.Assertions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,7 +31,7 @@ import java.util.stream.Collectors;
 @Service
 public class JudgeServiceImpl implements JudgeService {
 
-    @Value("${codesandbox.type:example}")
+    @Value("${codesandbox.type}")
     private String type;
 
     @Resource

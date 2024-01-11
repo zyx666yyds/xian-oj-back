@@ -8,6 +8,7 @@ import com.zyx.zyxio.judge.codesandbox.model.ExecuteCodeResponse;
 import com.zyx.zyxio.model.enums.QuestionSubmitLanguageEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -51,7 +52,13 @@ class CodeSandboxTest {
     void executeCodeByProxy() {
         CodeSandbox codeSandbox = CodeSandboxFactory.newInstance(type);
 
-        String code = "int main(){}";
+        String code = "public class Main{\n" +
+                "   public static void main(String[] args){\n"+
+                "       int a = Integer.parseInt(args[0]);\n"+
+                "       int b = Integer.parseInt(args[1]);\n"+
+                "       System.out.println(\"结果：\" + (a + b));\n"+
+                "   }\n"+
+                "}";
         String language = QuestionSubmitLanguageEnum.JAVA.getValue();
         List<String> inputList = Arrays.asList("1 2", "3 4");
 

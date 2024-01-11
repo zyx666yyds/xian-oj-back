@@ -4,9 +4,8 @@ import com.zyx.zyxio.judge.strategy.DefaultJudgeStrategy;
 import com.zyx.zyxio.judge.strategy.JavaJudgeStrategy;
 import com.zyx.zyxio.judge.strategy.JudgeContext;
 import com.zyx.zyxio.judge.strategy.JudgeStrategy;
-import com.zyx.zyxio.model.dto.questionsubmit.JudgeInfo;
+import com.zyx.zyxio.judge.codesandbox.model.JudgeInfo;
 import com.zyx.zyxio.model.entity.QuestionSubmit;
-import com.zyx.zyxio.model.enums.QuestionSubmitLanguageEnum;
 import org.springframework.stereotype.Service;
 
 import static com.zyx.zyxio.model.enums.QuestionSubmitLanguageEnum.*;
@@ -26,7 +25,7 @@ public class JudgeManager {
         QuestionSubmit questionSubmit = judgeContext.getQuestionSubmit();
         String language = questionSubmit.getLanguage();
         JudgeStrategy judgeStrategy = new DefaultJudgeStrategy();
-        if (JAVA.equals(language)) {
+        if (JAVA.getValue().equals(language)) {
             judgeStrategy = new JavaJudgeStrategy();
         }
         return judgeStrategy.doJudge(judgeContext);

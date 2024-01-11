@@ -1,7 +1,5 @@
 package com.zyx.zyxio.judge.codesandbox.model;
 
-import com.zyx.zyxio.model.dto.question.QuestionJudgeConfig;
-import com.zyx.zyxio.model.dto.questionsubmit.JudgeInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

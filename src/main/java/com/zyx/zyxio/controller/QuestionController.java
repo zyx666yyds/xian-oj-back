@@ -11,10 +11,15 @@ import com.zyx.zyxio.constant.UserConstant;
 import com.zyx.zyxio.exception.BusinessException;
 import com.zyx.zyxio.exception.ThrowUtils;
 import com.zyx.zyxio.model.dto.question.*;
+import com.zyx.zyxio.model.dto.questionsubmit.QuestionSubmitAddRequest;
+import com.zyx.zyxio.model.dto.questionsubmit.QuestionSubmitQueryRequest;
 import com.zyx.zyxio.model.entity.Question;
+import com.zyx.zyxio.model.entity.QuestionSubmit;
 import com.zyx.zyxio.model.entity.User;
+import com.zyx.zyxio.model.vo.QuestionSubmitVO;
 import com.zyx.zyxio.model.vo.QuestionVO;
 import com.zyx.zyxio.service.QuestionService;
+import com.zyx.zyxio.service.QuestionSubmitService;
 import com.zyx.zyxio.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -40,6 +45,9 @@ public class QuestionController {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private QuestionSubmitService questionSubmitService;
 
     // region 增删改查
 
@@ -284,4 +292,45 @@ public class QuestionController {
         return ResultUtils.success(result);
     }
 
+
+
+
+
+    /**
+     * 提交题目
+     *
+     * @param questionSubmitAddRequest
+     * @param request
+     * @return 提交的记录id
+     */
+    @PostMapping("/question_submit/do")
+    public BaseResponse<Long> doQuestionSubmit(@RequestBody QuestionSubmitAddRequest questionSubmitAddRequest,
+                                               HttpServletRequest request) {
+        if (questionSubmitAddRequest == null || questionSubmitAddRequest.getQuestionId() <= 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        // 登录才能点赞
+        final User loginUser = userService.getLoginUser(request);
+        long questionSubmitId = questionSubmitService.doQuestionSubmit(questionSubmitAddRequest, loginUser);
+        return ResultUtils.success(questionSubmitId);
+    }
+
+    /**
+     * 分页获取题目提交列表（除管理员外，普通用户只能看到非答案、提交代码等公开信息）
+     *
+     * @param questionSubmitQueryRequest
+     * @return
+     */
+    @PostMapping("/question_submit/list/page")
+    public BaseResponse<Page<QuestionSubmitVO>> listQuestionSubmitByPage(@RequestBody QuestionSubmitQueryRequest questionSubmitQueryRequest, HttpServletRequest request) {
+        long current = questionSubmitQueryRequest.getCurrent();
+        long size = questionSubmitQueryRequest.getPageSize();
+
+        //从数据库中获取题目列表，提交分页信息
+        Page<QuestionSubmit> questionSubmitPage = questionSubmitService.page(new Page<>(current, size),
+                questionSubmitService.getQueryWrapper(questionSubmitQueryRequest));
+        User loginUser = userService.getLoginUser(request);
+        //返回脱敏信息
+        return ResultUtils.success(questionSubmitService.getQuestionSubmitVOPage(questionSubmitPage, loginUser));
+    }
 }

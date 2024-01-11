@@ -1,6 +1,6 @@
 package com.zyx.zyxio.judge.strategy;
 
-import com.zyx.zyxio.model.dto.questionsubmit.JudgeInfo;
+import com.zyx.zyxio.judge.codesandbox.model.JudgeInfo;
 
 /**
  * 判题策略

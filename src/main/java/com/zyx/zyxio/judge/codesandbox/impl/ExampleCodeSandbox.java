@@ -3,7 +3,7 @@ package com.zyx.zyxio.judge.codesandbox.impl;
 import com.zyx.zyxio.judge.codesandbox.CodeSandbox;
 import com.zyx.zyxio.judge.codesandbox.model.ExecuteCodeRequest;
 import com.zyx.zyxio.judge.codesandbox.model.ExecuteCodeResponse;
-import com.zyx.zyxio.model.dto.questionsubmit.JudgeInfo;
+import com.zyx.zyxio.judge.codesandbox.model.JudgeInfo;
 import com.zyx.zyxio.model.enums.JudgeInfoMessageEnum;
 import com.zyx.zyxio.model.enums.QuestionSubmitStatusEnum;
 import lombok.extern.slf4j.Slf4j;

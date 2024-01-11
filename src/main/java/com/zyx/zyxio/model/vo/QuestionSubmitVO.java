@@ -2,7 +2,7 @@ package com.zyx.zyxio.model.vo;
 
 import cn.hutool.json.JSONUtil;
 
-import com.zyx.zyxio.model.dto.questionsubmit.JudgeInfo;
+import com.zyx.zyxio.judge.codesandbox.model.JudgeInfo;
 import com.zyx.zyxio.model.entity.QuestionSubmit;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;

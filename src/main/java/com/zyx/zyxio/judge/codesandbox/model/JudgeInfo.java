@@ -1,4 +1,4 @@
-package com.zyx.zyxio.model.dto.questionsubmit;
+package com.zyx.zyxio.judge.codesandbox.model;
 
 import lombok.Data;
 

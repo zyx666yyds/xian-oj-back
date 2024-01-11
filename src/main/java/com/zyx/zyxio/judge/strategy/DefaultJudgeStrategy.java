@@ -3,7 +3,7 @@ package com.zyx.zyxio.judge.strategy;
 import cn.hutool.json.JSONUtil;
 import com.zyx.zyxio.model.dto.question.QuestionJudgeCase;
 import com.zyx.zyxio.model.dto.question.QuestionJudgeConfig;
-import com.zyx.zyxio.model.dto.questionsubmit.JudgeInfo;
+import com.zyx.zyxio.judge.codesandbox.model.JudgeInfo;
 import com.zyx.zyxio.model.entity.Question;
 import com.zyx.zyxio.model.enums.JudgeInfoMessageEnum;
 
